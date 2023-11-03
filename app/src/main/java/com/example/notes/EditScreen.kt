@@ -16,6 +16,7 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.text.input.TextFieldValue // Added TextFieldValue import
 import androidx.compose.ui.text.input.TextFieldValue.Companion // Added TextFieldValue.Companion import
 import androidx.navigation.NavController
+import kotlin.math.min
 
 @Composable
 
@@ -23,6 +24,7 @@ fun EditScreen( navController: NavController,list: MutableList<Element>, modifie
     val currentElement by remember {
         mutableStateOf(list.single{it.id == id})
     }
+    var errorString by remember{ mutableStateOf("")}
     Column(
         modifier = modifier
             .fillMaxWidth(),
@@ -34,7 +36,6 @@ fun EditScreen( navController: NavController,list: MutableList<Element>, modifie
         var minTitleChar = 3
         var maxTitleChar = 50
         var maxTextChar = 150
-
 
         Text("Edit:")
         TextField(
@@ -53,6 +54,9 @@ fun EditScreen( navController: NavController,list: MutableList<Element>, modifie
             label = { Text("Text") }
         )
         Button(onClick = {
+            if(title.length < minTitleChar){
+                errorString = "Error: Title to short"
+            }
             if(title.length >=minTitleChar){
                 currentElement.title = title
                 currentElement.text = text
@@ -62,6 +66,6 @@ fun EditScreen( navController: NavController,list: MutableList<Element>, modifie
         }) {
             Text("RETURN")
         }
-
+        Text(text = errorString)
     }
 }
