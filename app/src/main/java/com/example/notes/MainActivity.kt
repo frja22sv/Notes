@@ -45,7 +45,7 @@ import java.time.format.TextStyle
 import java.util.UUID
 
 data class Element(
-    val id: String = UUID.randomUUID().toString(),
+    var id: String = UUID.randomUUID().toString(),
     var title: String,
     var text: String
 )
@@ -202,7 +202,11 @@ fun ListView(navController: NavController, list: MutableList<Element>, modifier:
                 ){
                     Button(
                         onClick = {
-                            list.add(Element(title = "", text = ""))
+                            val newElement = Element(title = "", text = "")
+                            val newElementId = UUID.randomUUID().toString()
+                            newElement.id = newElementId
+                            navController.navigate("Edit/$newElementId")
+                            list.add(newElement)
                         },
                         modifier = Modifier.padding(end = 8.dp),
                     ) {

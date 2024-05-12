@@ -46,7 +46,7 @@ fun DetailScreen( navController: NavController,list: MutableList<Element>, modif
         Button(onClick = {
             currentElement.title = title
             currentElement.text = text
-            navController.navigate("List")
+            navController.navigateUp()
         }) {
             Text("RETURN")
         }

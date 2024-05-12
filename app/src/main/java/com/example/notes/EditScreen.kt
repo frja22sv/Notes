@@ -50,7 +50,7 @@ fun EditScreen( navController: NavController,list: MutableList<Element>, modifie
             if(title.length >=minTitleChar && title.length < maxTitleChar && text.length < maxTextChar){
                 currentElement.title = title
                 currentElement.text = text
-                navController.navigate("List")
+                navController.navigateUp()
             }
             else if (text.length > maxTextChar){
                 errorMessage.value = "Error, the text length is to long."
